@@ -38,7 +38,7 @@ async function censor() {
 		}
 	});
 	let resp = await response.json();
-        document.getElementById("analysis").innerHTML = resp.analysis;
+        document.getElementById("analysis").innerHTML = `${resp.analysis} (width = ${resp.width})`;
 	document.getElementById("output").innerHTML = resp.censored;
 }
 censor();
@@ -57,6 +57,7 @@ struct Req {
 struct Resp {
     censored: String,
     analysis: String,
+    width: usize,
 }
 
 #[post("/", data = "<req>")]
@@ -66,10 +67,12 @@ fn censor(req: String) -> Json<String> {
     let req: Req = serde_json::from_str(&req).unwrap_or_default();
 
     let (censored, analysis) = Censor::from_str(&req.text).censor_and_analyze();
+    let width = rustrict::width_str(&req.text);
 
     let resp = Resp {
         censored,
         analysis: format!("{:?}", analysis),
+        width,
     };
 
     Json(serde_json::to_string(&resp).unwrap())

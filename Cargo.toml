@@ -9,6 +9,6 @@ crate-type = ["cdylib"]
 [dependencies]
 shuttle-service = "0.2"
 rocket = "0.5.0-rc.1"
-rustrict = "0.4.9"
+rustrict = {version = "0.4.9", features = ["width"]}
 serde = {version="1", features=["derive"]}
 serde_json = "1"
