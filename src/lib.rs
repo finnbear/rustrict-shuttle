@@ -11,6 +11,9 @@ use serde::{Serialize, Deserialize};
 #[get("/")]
 fn index() -> Html<&'static str> {
     Html(r###"
+<!DOCTYPE html>
+<head>
+<title>Rustrict on Shuttle</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script>
 async function censor() {
@@ -28,6 +31,8 @@ async function censor() {
 	document.getElementById("output").innerHTML = resp.censored;
 }
 </script>
+</head>
+<body style="padding: 1em;">
 <h1>Rustrict Shuttle Api</h1>
 <a href="https://crates.io/crates/rustrict">Rustrict</a>
 <a href="https://www.shuttle.rs/">Shuttle</a>
@@ -37,6 +42,7 @@ async function censor() {
 <p id="analysis"></p>
 <h2>Output</h2>
 <p id="output"></p>
+</body>
 "###)
 }
 
