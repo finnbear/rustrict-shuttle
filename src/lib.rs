@@ -4,13 +4,14 @@ extern crate shuttle_service;
 #[macro_use]
 extern crate rocket;
 
-use rocket::{Build, Rocket};
 use rocket::response::content::{Html, Json};
-use serde::{Serialize, Deserialize};
+use rocket::{Build, Rocket};
+use serde::{Deserialize, Serialize};
 
 #[get("/")]
 fn index() -> Html<&'static str> {
-    Html(r###"
+    Html(
+        r###"
 <!DOCTYPE html>
 <head>
 <title>Rustrict on Shuttle</title>
@@ -30,20 +31,21 @@ async function censor() {
         document.getElementById("analysis").innerHTML = resp.analysis;
 	document.getElementById("output").innerHTML = resp.censored;
 }
+censor();
 </script>
 </head>
 <body style="padding: 1em;">
 <h1>Rustrict Shuttle Api</h1>
-<a href="https://crates.io/crates/rustrict">Rustrict</a>
-<a href="https://www.shuttle.rs/">Shuttle</a>
+<a href="https://crates.io/crates/rustrict">Rustrict</a> + <a href="https://www.shuttle.rs/">Shuttle</a> = <a href="https://github.com/finnbear/rustrict-shuttle">Rustrict Shuttle</a>
 <h2>Input</h2>
 <input id="input" class="form-control" oninput="censor()" type="text"/>
 <h2>Analysis</h2>
 <p id="analysis"></p>
 <h2>Output</h2>
-<p id="output"></p>
+<textarea id="output" class="form-control" rows="10" readonly></textarea>
 </body>
-"###)
+"###,
+    )
 }
 
 #[derive(Default, Deserialize)]
@@ -65,7 +67,7 @@ fn censor(req: String) -> Json<String> {
 
     let (censored, analysis) = Censor::from_str(&req.text).censor_and_analyze();
 
-    let resp = Resp{
+    let resp = Resp {
         censored,
         analysis: format!("{:?}", analysis),
     };
