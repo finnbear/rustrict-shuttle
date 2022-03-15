@@ -1,0 +1,14 @@
+[package]
+name = "shuttle-rustrict"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+shuttle-service = "0.2"
+rocket = "0.5.0-rc.1"
+rustrict = "0.4.9"
+serde = {version="1", features=["derive"]}
+serde_json = "1"
