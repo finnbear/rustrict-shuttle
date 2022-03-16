@@ -18,7 +18,7 @@
   <h2>Analysis</h2>
   <p id="analysis"></p>
   <h2>Output</h2>
-  <textarea id="output" class="form-control" rows="10" readonly></textarea>
+  <textarea id="output" class="form-control" rows="10" readonly style="resize: vertical;"></textarea>
   <script>
     async function censor() {
       const req = { text: document.getElementById("input").value };
@@ -34,7 +34,7 @@
       document.getElementById(
         "analysis"
       ).innerHTML = `${resp.analysis} (width = ${resp.width})`;
-      document.getElementById("output").innerHTML = resp.censored;
+      document.getElementById("output").value = resp.censored;
     }
     censor();
   </script>
