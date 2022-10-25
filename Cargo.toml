@@ -1,5 +1,5 @@
 [package]
-name = "shuttle-rustrict"
+name = "rustrict-shuttle"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,8 +7,8 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-shuttle-service = "0.2"
-rocket = "0.5.0-rc.1"
-rustrict = {version = "0.4.9", features = ["width"]}
+shuttle-service = { version = "0.7.1", features = ["web-rocket"] }
+rocket = "0.5.0-rc.2"
+rustrict = {version = "0.5.3", features = ["width"]}
 serde = {version="1", features=["derive"]}
 serde_json = "1"

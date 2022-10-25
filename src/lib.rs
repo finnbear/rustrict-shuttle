@@ -1,16 +1,14 @@
-#[macro_use]
 extern crate shuttle_service;
 
 #[macro_use]
 extern crate rocket;
 
-use rocket::response::content::{Html, Json};
-use rocket::{Build, Rocket};
+use rocket::response::content::{RawHtml, RawJson};
 use serde::{Deserialize, Serialize};
 
 #[get("/")]
-fn index() -> Html<&'static str> {
-    Html(include_str!("index.html"))
+fn index() -> RawHtml<&'static str> {
+    RawHtml(include_str!("index.html"))
 }
 
 #[derive(Default, Deserialize)]
@@ -26,7 +24,7 @@ struct Resp {
 }
 
 #[post("/", data = "<req>")]
-fn censor(req: String) -> Json<String> {
+fn censor(req: String) -> RawJson<String> {
     use rustrict::Censor;
 
     let req: Req = serde_json::from_str(&req).unwrap_or_default();
@@ -40,11 +38,13 @@ fn censor(req: String) -> Json<String> {
         width,
     };
 
-    Json(serde_json::to_string(&resp).unwrap())
+    RawJson(serde_json::to_string(&resp).unwrap())
 }
 
-fn init() -> Rocket<Build> {
-    rocket::build().mount("/", routes![index, censor])
+#[shuttle_service::main]
+async fn init() -> shuttle_service::ShuttleRocket {
+    Ok(
+        rocket::build()
+            .mount("/", routes![index, censor])
+    )
 }
-
-declare_service!(Rocket<Build>, init);
