@@ -45,8 +45,7 @@ fn censor(req: String) -> RawJson<String> {
 
 #[shuttle_runtime::main]
 async fn rocket() -> shuttle_rocket::ShuttleRocket {
-    let rocket = rocket::build()
-        .mount("/", routes![index, censor]);
+    let rocket = rocket::build().mount("/", routes![index, censor]);
 
     Ok(rocket.into())
 }
