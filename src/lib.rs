@@ -41,10 +41,10 @@ fn censor(req: String) -> RawJson<String> {
     RawJson(serde_json::to_string(&resp).unwrap())
 }
 
-#[shuttle_service::main]
-async fn init() -> shuttle_service::ShuttleRocket {
-    Ok(
-        rocket::build()
-            .mount("/", routes![index, censor])
-    )
+#[shuttle_runtime::main]
+async fn rocket() -> shuttle_rocket::ShuttleRocket {
+    let rocket = rocket::build()
+        .mount("/", routes![index, censor]);
+
+    Ok(rocket.into())
 }
