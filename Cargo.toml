@@ -3,9 +3,6 @@ name = "rustrict-shuttle"
 version = "0.1.0"
 edition = "2021"
 
-[lib]
-crate-type = ["cdylib"]
-
 [dependencies]
 shuttle-rocket = "0.29.0"
 shuttle-runtime = "0.29.0"
