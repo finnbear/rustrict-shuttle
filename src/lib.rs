@@ -18,6 +18,7 @@ struct Req {
 
 #[derive(Serialize)]
 struct Resp {
+    original: String,
     censored: String,
     analysis: String,
     width: usize,
@@ -33,6 +34,7 @@ fn censor(req: String) -> RawJson<String> {
     let width = rustrict::width_str(&req.text);
 
     let resp = Resp {
+        original: req.text,
         censored,
         analysis: format!("{:?}", analysis),
         width,

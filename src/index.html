@@ -31,6 +31,9 @@
         },
       });
       let resp = await response.json();
+      if (resp.original != req.text) {
+        return;
+      }
       document.getElementById(
         "analysis"
       ).innerHTML = `${resp.analysis} (width = ${resp.width})`;
