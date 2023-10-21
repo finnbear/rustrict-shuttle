@@ -1,5 +1,3 @@
-extern crate shuttle_service;
-
 #[macro_use]
 extern crate rocket;
 
